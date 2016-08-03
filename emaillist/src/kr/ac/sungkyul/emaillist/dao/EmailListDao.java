@@ -6,15 +6,28 @@ import java.util.*;
 import kr.ac.sungkyul.emaillist.vo.EmailListVo;
 
 public class EmailListDao {
+	private Connection getConnection() throws SQLException{
+		Connection conn = null;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			conn = DriverManager.getConnection(url, "webdb", "webdb");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return conn;
+	}
+
 	public boolean insert(EmailListVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int count = 0;
 
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
-			conn = DriverManager.getConnection(url, "webdb", "webdb");
+			conn = getConnection();
+
 			String sql = "insert into EMAILLIST values(seq_emaillist.nextval, ?, ?, ?, sysdate)";
 
 			pstmt = conn.prepareCall(sql);
@@ -23,9 +36,6 @@ public class EmailListDao {
 			pstmt.setString(3, vo.getEmail());
 
 			count = pstmt.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			return false;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -51,9 +61,7 @@ public class EmailListDao {
 		ResultSet rs = null;
 
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
-			conn = DriverManager.getConnection(url, "webdb", "webdb");
+			conn = getConnection();
 			stmt = conn.createStatement();
 
 			String sql = "select no, first_name, last_name, email, to_char(REG_DATE, 'yyyy-mm-dd') from EMAILLIST order by REG_DATE desc";
@@ -74,8 +82,6 @@ public class EmailListDao {
 				vo.setRegDate(regDate);
 				list.add(vo);
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
