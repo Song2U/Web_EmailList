@@ -18,7 +18,7 @@
 	</form>
 	<br>
 	<p>
-		<a href="show_emaillist.jsp"> 리스트 바로가기 </a>
+		<a href="index.jsp"> 리스트 바로가기 </a>
 	</p>
 </body>
 </html>

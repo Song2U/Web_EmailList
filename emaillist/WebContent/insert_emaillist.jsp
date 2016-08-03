@@ -17,7 +17,7 @@
 	EmailListDao dao = new EmailListDao();
 	boolean result = dao.insert(vo);
 	
-	response.sendRedirect("/emaillist/show_emaillist.jsp"); // 주소창 변경
+	response.sendRedirect("/emaillist/index.jsp"); // 주소창 변경
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
