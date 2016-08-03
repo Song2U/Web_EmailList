@@ -40,7 +40,9 @@
 	</table>
 	<br>
 	<%} %>
-	<p>추가메일 등록</p>
+	<p>
+	<a href="form_emaillist.jsp" >추가메일 등록</a>
+	</p>
 	<br>
 </body>
 </html>
